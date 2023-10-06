@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviourPun
     public PlayerController[] players;
     public Transform[] spawnPoints;
     public int alivePlayers;
-    public int playerWithChest;
+    //public int playerWithChest;
 
     private int playersInGame;
 
@@ -34,7 +34,15 @@ public class GameManager : MonoBehaviourPun
         alivePlayers = players.Length;
 
         photonView.RPC("ImInGame", RpcTarget.AllBuffered);
-        GameObject.Find("chest");
+        chest = GameObject.FindGameObjectWithTag("Chest");
+        
+    }
+
+    [PunRPC]
+    void Update ()
+    {
+        if(chest == null)
+            photonView.RPC("WinGame", RpcTarget.All, players.First(x => !x.dead).id);
     }
 
     [PunRPC]
@@ -66,19 +74,10 @@ public class GameManager : MonoBehaviourPun
         return players.First(x => x.gameObject == playerObject);
     }
 
-    // [PunRPC]
-    // public void GetChest (int playerId)
-    // {
-    //     playerWithChest = playerId;
-    //     GetPlayer(playerId).SetChest(true);
-    // }
-
-
     public void CheckWinCondition ()
     {
-        if(chest == null)
+        if(alivePlayers == 1)
             photonView.RPC("WinGame", RpcTarget.All, players.First(x => !x.dead).id);
-    
     }
 
     [PunRPC]

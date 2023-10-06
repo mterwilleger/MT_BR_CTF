@@ -15,7 +15,7 @@ public class ChestBehavior : MonoBehaviourPun
     {
         if (other.CompareTag("Player"))
         {
-            photonView.RPC("DestroyChest", RpcTarget.AllBuffered); 
+            photonView.RPC("DestroyChest", RpcTarget.AllBuffered);
         } 
     }
 

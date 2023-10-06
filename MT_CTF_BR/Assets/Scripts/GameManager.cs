@@ -8,13 +8,14 @@ using System.Linq;
 public class GameManager : MonoBehaviourPun
 {
     public float postGameTime;
+    public GameObject chest;
 
     [Header("Players")]
     public string playerPrefabLocation;
     public PlayerController[] players;
     public Transform[] spawnPoints;
     public int alivePlayers;
-    public GameObject[] objectsToAssignTeams;
+    public int playerWithChest;
 
     private int playersInGame;
 
@@ -32,23 +33,6 @@ public class GameManager : MonoBehaviourPun
         alivePlayers = players.Length;
 
         photonView.RPC("ImInGame", RpcTarget.AllBuffered);
-    }
-
-    void AssignTeams()
-    {
-        for (int i = 0; i < objectsToAssignTeams.Length; i++)
-        {
-            if (i % 2 == 0) // Even index
-            {
-                // Assign to Team A
-                objectsToAssignTeams[i].layer = LayerMask.NameToLayer("RedTeam");
-            }
-            else // Odd index
-            {
-                // Assign to Team B
-                objectsToAssignTeams[i].layer = LayerMask.NameToLayer("BlueTeam");
-            }
-        }
     }
 
     [PunRPC]
@@ -80,15 +64,23 @@ public class GameManager : MonoBehaviourPun
         return players.First(x => x.gameObject == playerObject);
     }
 
+    // [PunRPC]
+    // public void GetChest (int playerId)
+    // {
+    //     playerWithChest = playerId;
+    //     GetPlayer(playerId).SetChest(true);
+    // }
+
+
     public void CheckWinCondition ()
     {
-        if(alivePlayers == 1)
+        if(alivePlayers == 1 || GameObject.Find("chest")!=null)
             photonView.RPC("WinGame", RpcTarget.All, players.First(x => !x.dead).id);
     
     }
 
     [PunRPC]
-    void WinGame (int winningPlayer)
+    public void WinGame (int winningPlayer)
     {
         //set UI Win Text
         GameUI.instance.SetWinText(GetPlayer(winningPlayer).photonPlayer.NickName);

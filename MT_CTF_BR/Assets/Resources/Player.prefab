@@ -236,12 +236,12 @@ GameObject:
   - component: {fileID: 7985087395325824497}
   - component: {fileID: 1542148190622712142}
   m_Layer: 0
-  m_Name: BlueTreasureChest
+  m_Name: TreasureChest
   m_TagString: Chest
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7985087395325824497
 Transform:
   m_ObjectHideFlags: 0
@@ -809,6 +809,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
+  chest: {fileID: 0}
   moveSpeed: 10
   jumpForce: 10
   curHp: 100
@@ -818,6 +819,9 @@ MonoBehaviour:
   rig: {fileID: 8874923369407753090}
   weapon: {fileID: 24815468361030133}
   mr: {fileID: 8874923369407753088}
+  team: 0
+  red: {fileID: 2100000, guid: b9975ccb7545b6248937007adabdc2e6, type: 2}
+  blue: {fileID: 2100000, guid: 96d3fe10777da9542b766f6e9dab2727, type: 2}
 --- !u!114 &2718133550578749638
 MonoBehaviour:
   m_ObjectHideFlags: 0

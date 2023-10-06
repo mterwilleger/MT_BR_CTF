@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviourPun
     [Header("Info")]
     public int id;
     private int curAttackerId;
+    public GameObject chest;
 
     [Header("Stats")]
     public float moveSpeed;
@@ -25,6 +26,10 @@ public class PlayerController : MonoBehaviourPun
     public Player photonPlayer;
     public PlayerWeapon weapon;
     public MeshRenderer mr;
+    public bool team;
+    public Material red;
+    public Material blue;
+    
 
 
     [PunRPC]
@@ -35,6 +40,15 @@ public class PlayerController : MonoBehaviourPun
 
         GameManager.instance.players[id - 1] = this;
 
+        if(id%2 ==0)
+        {
+            this.gameObject.GetComponent<MeshRenderer>().material = red;
+            team = false;
+        }
+        else{
+            this.gameObject.GetComponent<MeshRenderer>().material = blue;
+            team = true;
+        }
         // is this not our local player?
         if(!photonView.IsMine)
         {
@@ -80,6 +94,12 @@ public class PlayerController : MonoBehaviourPun
         if(Physics.Raycast(ray, 1.5f))
             rig.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
     }
+
+    public void SetChest (bool hasChest)
+    {
+        chest.SetActive(hasChest);
+    }
+
 
     [PunRPC]
     public void TakeDamage (int attackerId, int damage)

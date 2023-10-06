@@ -241,7 +241,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7985087395325824497
 Transform:
   m_ObjectHideFlags: 0
@@ -691,7 +691,6 @@ GameObject:
   - component: {fileID: 2718133550578749638}
   - component: {fileID: 4554306866021880985}
   - component: {fileID: 24815468361030133}
-  - component: {fileID: 8627386020338955445}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -809,7 +808,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  chest: {fileID: 0}
+  chest: {fileID: 7552416114118066351}
   moveSpeed: 10
   jumpForce: 10
   curHp: 100
@@ -880,19 +879,6 @@ MonoBehaviour:
   shootRate: 0.2
   bulletPrefab: {fileID: 4997178811344892544, guid: 4bca31f7471f4af49a3cce52bdba298b, type: 3}
   bulletSpawnPos: {fileID: 1349394468}
---- !u!114 &8627386020338955445
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8874923369407753092}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e00ae9d71513db34a9c52d6e911d5569, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  teamID: 0
 --- !u!1 &8893322022314681934
 GameObject:
   m_ObjectHideFlags: 0

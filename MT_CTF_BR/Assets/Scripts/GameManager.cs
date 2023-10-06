@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviourPun
 {
     public float postGameTime;
     public GameObject chest;
+    
 
     [Header("Players")]
     public string playerPrefabLocation;
@@ -33,6 +34,7 @@ public class GameManager : MonoBehaviourPun
         alivePlayers = players.Length;
 
         photonView.RPC("ImInGame", RpcTarget.AllBuffered);
+        GameObject.Find("chest");
     }
 
     [PunRPC]
@@ -74,7 +76,7 @@ public class GameManager : MonoBehaviourPun
 
     public void CheckWinCondition ()
     {
-        if(alivePlayers == 1 || GameObject.Find("chest")!=null)
+        if(chest == null)
             photonView.RPC("WinGame", RpcTarget.All, players.First(x => !x.dead).id);
     
     }

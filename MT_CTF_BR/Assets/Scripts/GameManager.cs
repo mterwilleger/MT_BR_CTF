@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviourPun
     public PlayerController[] players;
     public Transform[] spawnPoints;
     public int alivePlayers;
+    public GameObject[] objectsToAssignTeams;
 
     private int playersInGame;
 
@@ -31,6 +32,23 @@ public class GameManager : MonoBehaviourPun
         alivePlayers = players.Length;
 
         photonView.RPC("ImInGame", RpcTarget.AllBuffered);
+    }
+
+    void AssignTeams()
+    {
+        for (int i = 0; i < objectsToAssignTeams.Length; i++)
+        {
+            if (i % 2 == 0) // Even index
+            {
+                // Assign to Team A
+                objectsToAssignTeams[i].layer = LayerMask.NameToLayer("RedTeam");
+            }
+            else // Odd index
+            {
+                // Assign to Team B
+                objectsToAssignTeams[i].layer = LayerMask.NameToLayer("BlueTeam");
+            }
+        }
     }
 
     [PunRPC]
@@ -66,6 +84,7 @@ public class GameManager : MonoBehaviourPun
     {
         if(alivePlayers == 1)
             photonView.RPC("WinGame", RpcTarget.All, players.First(x => !x.dead).id);
+    
     }
 
     [PunRPC]
